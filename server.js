@@ -1,21 +1,35 @@
 require('dotenv').config();
 const express = require('express');
+const session = require('express-session');
 const colors = require('colors');
 const morgan = require('morgan');
 const fs = require('fs');
 const path = require('path');
 const swaggerJsDoc = require('swagger-jsdoc');
 const swaggerUi = require('swagger-ui-express');
-const connectDB = require('./config/Database');
 const cors = require('cors');
 
+const connectDB = require('./config/Database');
+const passport = require('./config/Passport');
+
 // Routes imports
+const Router = require('./routes/index');
 const SwagerTestRoute = require('./routes/SwagerTestRoute');
 
 const app = express();
 connectDB();
 
 // Middleware setup
+app.use(
+  session({
+    secret: process.env.SESSION_SECRET || 'Qwerty@123',
+    resave: false,
+    saveUninitialized: true,
+  })
+);
+
+app.use(passport.initialize());
+app.use(passport.session());
 app.use(express.json());
 // Enable CORS
 app.use(cors());
@@ -50,6 +64,7 @@ app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocs));
 
 // Routes setup
 
+Router(app);
 app.use('/v1/api', SwagerTestRoute);
 
 app.get('/', (req, res) => {

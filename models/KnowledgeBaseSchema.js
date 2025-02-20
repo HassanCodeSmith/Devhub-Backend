@@ -1,4 +1,4 @@
-import mongoose from 'mongoose';
+const mongoose = require('mongoose');
 
 const KnowledgeBaseSchema = new mongoose.Schema({
   title: { type: String, required: true },
