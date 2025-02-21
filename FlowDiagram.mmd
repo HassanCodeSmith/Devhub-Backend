@@ -1,0 +1,34 @@
+graph TD
+    User[User] --> |Creates| B[Blog Post]
+    User --> |Starts| D[Discussion]
+    User --> |Reports| BR[Bug Report]
+    User --> |Contributes| KB[Knowledge Base]
+    User --> |Comments on| C[Comment]
+    
+    B --> |Receives| C
+    D --> |Receives| C
+    
+    User --> |Follows| OtherUser[Other Users]
+    User --> |Earns| Badges[Badges]
+    User --> |Gains| Rep[Reputation]
+    
+    B --> |Can be| Featured[Featured]
+    D --> |Can have| PA[Accepted Answer]
+    BR --> |Can be| Assigned[Assigned to User]
+    KB --> |Can be| Reviewed[Reviewed]
+    
+    C --> |Can be| Accepted[Accepted Answer]
+    C --> |Can be| Reported[Reported]
+    
+    subgraph Content Management
+        B
+        D
+        BR
+        KB
+    end
+    
+    subgraph User Interactions
+        C
+        Badges
+        Rep
+    end

@@ -1,0 +1,101 @@
+erDiagram
+    User ||--o{ Blog : writes
+    User ||--o{ Comment : creates
+    User ||--o{ Discussion : starts
+    User ||--o{ BugReport : submits
+    User ||--o{ KnowledgeBase : contributes
+    User ||--o{ User : follows
+
+    Blog ||--o{ Comment : has
+    Blog {
+        string title
+        string content
+        string description
+        object cover_image
+        string category
+        array tags
+        number likes
+        number views
+        number reading_time
+        string status
+        boolean is_featured
+        array code_snippets
+        date created_at
+        date updated_at
+    }
+
+    Comment {
+        string content
+        boolean is_accepted
+        number upvotes
+        boolean is_anonymous
+        string visibility
+        boolean is_deleted
+        date created_at
+        date updated_at
+    }
+
+    Discussion ||--o{ Comment : has
+    Discussion {
+        string title
+        string content
+        string category
+        string type
+        array tags
+        array code_snippets
+        array poll_options
+        number views
+        number upvotes
+        number downvotes
+        boolean is_resolved
+        date created_at
+    }
+
+    BugReport {
+        string title
+        string content
+        string priority
+        string status
+        string category
+        object environment
+        array reproduction_steps
+        array code_snippets
+        array attachments
+        number upvotes
+        boolean is_resolved
+        date created_at
+    }
+
+    KnowledgeBase {
+        string title
+        string content
+        string description
+        string category
+        string subcategory
+        string difficulty_level
+        array tags
+        array code_snippets
+        string version
+        date last_reviewed
+        number views
+        number helpful_votes
+        string status
+        date created_at
+    }
+
+    User {
+        string username
+        string email
+        string avatar_url
+        string bio
+        string github_username
+        string role
+        array badges
+        object social_links
+        object settings
+        array interests
+        number reputation
+        date last_login
+        boolean is_active
+        array skills
+    }
