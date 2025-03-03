@@ -3,11 +3,13 @@
   "version": "1.0.0",
   "description": "Backend API for DevHub, a community platform for developers with custom authentication and real-time features.",
   "main": "server.js",
+  "type": "module",
   "directories": {
     "test": "tests"
   },
   "scripts": {
-    "server": "nodemon server.js",
+    "start": "cross-env NODE_ENV=PRODUCTION node server.js",
+    "start:dev": "nodemon server.js",
     "format": "prettier --write .",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
@@ -32,10 +34,13 @@
   },
   "homepage": "https://github.com/usama7365/Devhub-Backend#readme",
   "dependencies": {
+    "bcryptjs": "^3.0.2",
     "colors": "^1.4.0",
     "cors": "^2.8.5",
+    "cross-env": "^7.0.3",
     "dotenv": "^16.4.7",
     "express": "^4.21.2",
+    "express-async-errors": "^3.1.1",
     "express-session": "^1.18.1",
     "jsonwebtoken": "^9.0.2",
     "mongoose": "^8.10.1",
