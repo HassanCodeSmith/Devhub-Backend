@@ -1,8 +1,7 @@
 import { config } from 'dotenv';
 import passport from 'passport';
 import { Strategy as GitHubStrategy } from 'passport-github2';
-
-import User from '../models/UserSchema.js';
+import User from '../models/user.model.js';
 
 config();
 
@@ -17,20 +16,25 @@ passport.use(
     },
     async (accessToken, refreshToken, profile, done) => {
       try {
-        let user = await findOne({ github_username: profile.username });
+        console.log(profile);
+        let user = await User.findOne({ github_username: profile.username });
 
         if (!user) {
           user = new User({
             username: profile.username,
-            email: profile?.emails[0]?.value,
+            email: profile?.emails?.[0]?.value || '',
             github_username: profile.username,
-            avatar_url: profile?.photos[0]?.value,
-            bio: profile._json.bio,
+            avatar: {
+              url: profile?.photos?.[0]?.value || '',
+              name: `${profile.username}-avatar`,
+              size: 0, // Size is unknown, can be updated later
+              fileType: 'image/png', // Assuming PNG, update as needed
+            },
+            bio: profile._json.bio || '',
           });
 
           await user.save();
         }
-
         return done(null, user);
       } catch (error) {
         return done(error, false);
@@ -45,7 +49,7 @@ passport.serializeUser((user, done) => {
 
 passport.deserializeUser(async (id, done) => {
   try {
-    const user = await findById(id);
+    const user = await User.findById(id);
     done(null, user);
   } catch (error) {
     done(error, null);

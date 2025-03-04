@@ -1,7 +1,7 @@
 import { Router } from 'express';
 import passport from 'passport';
 
-import { githubCallback } from '../../controllers/AuthController.js';
+import { githubCallback } from '../../controllers/auth.controllers.js';
 
 const router = Router();
 

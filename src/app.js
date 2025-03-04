@@ -13,7 +13,7 @@ import { serve, setup } from 'swagger-ui-express';
 import { initialize, session as _session } from './config/passport.config.js';
 import colors from 'colors';
 import Router from './routes/index.js';
-import SwagerTestRoute from './routes/SwagerTestRoute.js';
+import SwagerTestRoute from './routes/swagerTest.routes.js';
 import { errorHandler } from './middleware/errorHandler.middleware.js';
 import { routeNotFound } from './middleware/routeNotFound.middleware.js';
 
@@ -37,6 +37,8 @@ app.use(
 app.use(initialize());
 app.use(_session());
 app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
+app.use('/public', express.static('public'));
 
 /** __________ Enable CORS __________ */
 app.use(cors());
